@@ -11,7 +11,6 @@ namespace BankAccount
     /// </summary>
     public class Account
     {
-        private double _balance;
 
         /// <summary>
         /// Deposits the amount in the bank account and 
@@ -20,20 +19,19 @@ namespace BankAccount
         /// <param name="amt">The amount to deposit.</param>
         public double Deposit(double amt)
         {
-            _balance += amt;
-            return _balance;
+            if(amt <= 0)
+            {
+                throw new ArgumentException($"{nameof(amt)} must be a positive value");
+            }
+
+            Balance += amt;
+            return Balance;
         }
 
         /// <summary>
         /// Gets the current balance.
         /// </summary>
-        public double Balance
-        {
-            get
-            {
-                return _balance;
-            }
-        }
+        public double Balance { get; private set; }
 
         public void Withdraw(double amt)
         {
