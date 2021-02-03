@@ -19,6 +19,10 @@ namespace BankAccount
         /// <param name="amt">The amount to deposit.</param>
         public double Deposit(double amt)
         {
+            if (amt >= 10000)
+            {
+                throw new ArgumentException($"{ nameof(amt)} must be smaller than 10000");
+            }
             if(amt <= 0)
             {
                 throw new ArgumentException($"{nameof(amt)} must be a positive value");
@@ -35,7 +39,11 @@ namespace BankAccount
 
         public void Withdraw(double amt)
         {
-
+            if (amt > Balance)
+            {
+                throw new ArgumentException("You cannot withdraw more than the current balance");
+            }
+            Balance -= amt;
         }
     }
 }
