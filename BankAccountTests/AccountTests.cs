@@ -124,7 +124,10 @@ namespace BankAccount.Tests
         [TestMethod]
         public void Withdraw_NegativeAmount_ThrowsArgumentException()
         {
-            Assert.Fail();
+            Account myAccount = new Account();
+            double withdrawAmount = -1;
+
+            Assert.ThrowsException<ArgumentException>(() => myAccount.Withdraw(withdrawAmount));
         }
     }
 }
