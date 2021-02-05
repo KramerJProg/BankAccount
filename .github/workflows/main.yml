@@ -3,12 +3,7 @@
 name: CI
 
 # Controls when the action will run. 
-on:
-  # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -19,19 +14,9 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    - name: log untrusted output
-      run: |
-
-        # disable command workflow processing
-        echo "::stop-commands::`echo -n ${{ github.token }} | sha256sum | head -c 64`"
-
-        # log untrusted output
-        echo "untrusted output"
-
-        # enable workflow command processing
-        echo "::`echo -n ${{ github.token }} | sha256sum | head -c 64`::"
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
+      
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v1
       
     - name: Setup MSBuild Path
       uses: warrenbuckley/Setup-MSBuild@v1
@@ -53,7 +38,7 @@ jobs:
       run: vstest.console BankAccountTests\bin\Release\BankAccountTests.dll
         
     - name: Upload Artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v1.0.0
       with:
         name: BankAccountApp
         path: BankAccount\bin\Release
