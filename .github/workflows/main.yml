@@ -20,23 +20,23 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
       
-      - name: Setup MSBuild Path
-        uses: warrenbuckley/Setup-MSBuild@v1.0.0
+    - name: Setup MSBuild Path
+      uses: warrenbuckley/Setup-MSBuild@v1
         
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.0.2
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.2
         
-      - name: Restore NuGet Packages
-        run: nuget restore BankAccount.sln
+    - name: Restore NuGet Packages
+      run: nuget restore BankAccount.sln
       
       # Compile app in release mode
-      - name: Build App
-        run: msbuild BankAccount.sln /p:Configuration=Release
+    - name: Build App
+      run: msbuild BankAccount.sln /p:Configuration=Release
         
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: BankAccountApp
-          path: bin\Release
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: BankAccountApp
+        path: bin\Release
